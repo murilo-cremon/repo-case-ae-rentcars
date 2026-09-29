@@ -1,0 +1,8 @@
+dbt_rentcars:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "../rentcars.duckdb" # Neste caso aqui, o banco de dados é criado na raíz do projeto
+      schema: main
+      threads: 4

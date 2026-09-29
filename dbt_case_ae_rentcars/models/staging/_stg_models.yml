@@ -1,0 +1,322 @@
+version: 2
+
+models:
+  - name: stg_parceiro
+    description: "Tabela staging contendo o cadastro padronizado e limpo dos parceiros/locadoras de veículos."
+    columns:
+      - name: id_parceiro
+        description: "Chave primária única do parceiro."
+        tests:
+          - not_null
+          - unique
+
+      - name: nome_parceiro
+        description: "Nome comercial do parceiro."
+        tests:
+          - not_null
+
+      - name: cod_pais_operacao
+        description: "Código ISO de 2 letras do país de operação do parceiro."
+        tests:
+          - not_null
+
+      - name: des_pais_operacao
+        description: "Nome por extenso do país de operação."
+        tests:
+          - not_null
+
+      - name: des_categoria_comercial
+        description: "Categoria comercial do parceiro (OURO, PRATA, BRONZE, NAO_CLASSIFICACAO)."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['OURO', 'PRATA', 'BRONZE', 'NAO_CLASSIFICACAO']
+
+      - name: tp_status_parceiro
+        description: "Status cadastral do parceiro (ATIVO, INATIVO, SUSPENSO)."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['ATIVO', 'INATIVO', 'SUSPENSO']
+
+      - name: vlr_taxa_comissao
+        description: "Taxa de comissão negociada com o parceiro."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0.0000
+              max_value: 1.0000
+
+      - name: dt_hora_cadastro
+        description: "Data e hora em que o parceiro foi cadastrado na plataforma."
+        tests:
+          - not_null
+
+      - name: dt_hora_atualizacao
+        description: "Data e hora da última atualização cadastral do parceiro."
+
+      - name: email_contato
+        description: "Endereço de e-mail de contato comercial do parceiro."
+        tests:
+          - dbt_expectations.expect_column_values_to_match_regex: # Validação de e-mail se está dentro do esperado
+              regex: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+
+  - name: stg_sessoes
+    description: "Tabela staging das sessões dos usuários na plataforma Rentcars."
+    columns:
+      - name: id_sessao
+        description: "Chave primária única da sessão."
+        tests:
+          - not_null
+          - unique
+
+      - name: id_usuario
+        description: "Identificador do usuário logado (pode ser nulo em sessões anônimas)."
+
+      - name: dt_hora_inicio
+        description: "Timestamp de início da sessão."
+        tests:
+          - not_null
+
+      - name: dt_hora_fim
+        description: "Timestamp de encerramento da sessão."
+
+      - name: des_canal_aquisicao
+        description: "Canal de aquisição de tráfego do usuário."
+
+      - name: tp_dispositivo
+        description: "Tipo de dispositivo utilizado (ex: MOBILE, DESKTOP, TABLET)."
+
+      - name: cod_pais_origem
+        description: "Código do país de origem do acesso."
+
+      - name: des_pais_operacao
+        description: "Nome por extenso do país de origem da sessão."
+        tests:
+          - not_null
+
+      - name: qt_paginas_vistas
+        description: "Quantidade total de páginas visualizadas durante a sessão."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: des_utm_origem
+        description: "Origem do rastreamento de marketing (padrão 'SEM RASTREAMENTO')."
+        tests:
+          - not_null
+
+      - name: des_utm_campanha
+        description: "Campanha de marketing associada."
+
+      - name: flg_bot
+        description: "Flag booleana indicando se o acesso foi identificado como robô/bot."
+        tests:
+          - not_null
+
+      - name: flg_sessao_anonima
+        description: "Flag indicando se a sessão foi realizada por um usuário não autenticado."
+        tests:
+          - not_null
+
+
+  - name: stg_buscas
+    description: "Tabela staging com as buscas por veículos efetuadas pelos usuários."
+    columns:
+      - name: id_busca
+        description: "Chave primária única da pesquisa realizada."
+        tests:
+          - not_null
+          - unique
+
+      - name: id_sessao
+        description: "Identificador da sessão onde a busca ocorreu."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_sessoes')
+              field: id_sessao
+
+      - name: dt_hora_busca
+        description: "Timestamp do momento da realização da busca."
+        tests:
+          - not_null
+
+      - name: des_local_retirada
+        description: "Local de retirada pesquisado."
+
+      - name: des_local_devolucao
+        description: "Local de devolução pesquisado (coalescido com o local de retirada)."
+        tests:
+          - not_null
+
+      - name: dt_retirada
+        description: "Data pretendida para a retirada do veículo."
+
+      - name: dt_devolucao
+        description: "Data pretendida para a devolução do veículo."
+
+      - name: des_categoria_veiculo
+        description: "Categoria de veículo selecionada no filtro (padrão 'FILTRO NAO APLICADO')."
+        tests:
+          - not_null
+
+      - name: qt_resultados_exibidos
+        description: "Quantidade de ofertas encontradas para a pesquisa."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: id_parceiro_clicado
+        description: "ID do parceiro da oferta clicada pelo usuário, se houver."
+
+      - name: vlr_menor_preco_exibido
+        description: "Menor valor diário exibido nos resultados de busca."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0.00
+
+      - name: flg_usuario_nao_clicou
+        description: "Flag que indica se o usuário saiu da busca sem clicar em nenhuma oferta."
+        tests:
+          - not_null
+
+      - name: flg_parceiro_existente
+        description: "Flag que sinaliza se o parceiro clicado está cadastrado na base oficial."
+        tests:
+          - not_null
+
+
+  - name: stg_reservas
+    description: "Tabela staging das reservas concluídas ou iniciadas na plataforma."
+    columns:
+      - name: id_reserva
+        description: "Chave primária única da reserva."
+        tests:
+          - not_null
+          - unique
+
+      - name: id_sessao
+        description: "Identificador da sessão em que a reserva foi gerada."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_sessoes')
+              field: id_sessao
+
+      - name: id_usuario
+        description: "Identificador do usuário que realizou a reserva."
+
+      - name: id_parceiro
+        description: "Identificador do parceiro/locadora responsável pelo veículo."
+        tests:
+          - not_null
+
+      - name: dt_hora_reserva
+        description: "Timestamp da conclusão do pedido de reserva."
+
+      - name: dt_retirada
+        description: "Data efetiva de retirada do veículo."
+        tests:
+          - not_null
+
+      - name: dt_devolucao
+        description: "Data efetiva de devolução do veículo."
+
+      - name: des_local_retirada
+        description: "Local/Agência de retirada do veículo."
+
+      - name: des_categoria_veiculo
+        description: "Categoria do veículo reservado."
+
+      - name: vlr_diaria
+        description: "Valor unitário da diária contratada."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0.00
+
+      - name: vlr_total_reserva
+        description: "Valor total da reserva de locação."
+
+      - name: cod_moeda
+        description: "Código monetário da transação (ex: BRL, USD)."
+
+      - name: tp_status_reserva
+        description: "Status atual da reserva (CONFIRMADO, PENDENTE, CONCLUÍDO, CANCELADO, NÃO COMPARECIMENTO)."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['CONFIRMADO', 'PENDENTE', 'CONCLUÍDO', 'CANCELADO', 'NÃO COMPARECIMENTO']
+
+      - name: des_forma_pagamento
+        description: "Método de pagamento utilizado."
+
+      - name: flg_parceiro_existente
+        description: "Flag que valida a existência do parceiro cadastrado."
+        tests:
+          - not_null
+
+      - name: flg_valor_acima_media
+        description: "Flag indicando se a reserva teve valor superior à média histórica de sua categoria."
+        tests:
+          - not_null
+
+
+  - name: stg_cancelamentos
+    description: "Tabela staging dos eventos de cancelamento de reservas."
+    columns:
+      - name: id_cancelamento
+        description: "Chave primária única do evento de cancelamento."
+        tests:
+          - not_null
+          - unique
+
+      - name: id_reserva
+        description: "Chave de associação com a reserva cancelada."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_reservas')
+              field: id_reserva
+
+      - name: dt_hora_cancelamento
+        description: "Timestamp do cancelamento."
+        tests:
+          - not_null
+
+      - name: des_motivo_cancelamento
+        description: "Motivo informado para o cancelamento."
+        tests:
+          - not_null
+
+      - name: des_responsavel_cancelamento
+        description: "Ator que solicitou o cancelamento (ADMINISTRADOR, CLIENTE, PARCEIRO, SISTEMA)."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['ADMINISTRADOR', 'CLIENTE', 'PARCEIRO', 'SISTEMA', 'NÃO PREENCHIDO']
+
+      - name: vlr_reembolsado
+        description: "Valor monetário reembolsado ao cliente."
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0.00
+
+      - name: tp_status_reembolso
+        description: "Status do processamento financeiro do reembolso (PENDENTE, NEGADO, PROCESSADO, POSSÍVEL CANCELAMENTO)."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['PENDENTE', 'NEGADO', 'PROCESSADO', 'POSSÍVEL CANCELAMENTO']
+
+      - name: qt_dias_antecedencia_retirada
+        description: "Número de dias entre a solicitação de cancelamento e a data prevista de retirada."
+
+      - name: flg_cancelamento_sem_reembolso
+        description: "Flag que identifica cancelamentos onde não houve aplicação/cálculo de reembolso."
+        tests:
+          - not_null
+
+      - name: flg_cancelamento_tardio
+        description: "Flag para sinalizar inconsistências onde os dias de antecedência foram negativos."
+        tests:
+          - not_null

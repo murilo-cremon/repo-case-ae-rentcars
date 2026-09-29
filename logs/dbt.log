@@ -1,0 +1,469 @@
+[0m11:04:38.346958 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA3C282120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA39E20B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA3EBFB890>]}
+
+
+============================== 11:04:38.350901 | 07ca51ef-447b-4c6b-b360-dc731a2f30fe ==============================
+[0m11:04:38.350901 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:04:38.351614 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'version_check': 'True', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt init dbt', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m11:04:38.363990 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\muril\.dbt
+[0m11:05:59.379917 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+
+[0m11:05:59.385155 [error] [MainThread]: Traceback (most recent call last):
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\requires.py", line 198, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\requires.py", line 144, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\main.py", line 504, in init
+    results = task.run()
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\task\init.py", line 340, in run
+    project_name = self.get_valid_project_name()
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\task\init.py", line 281, in get_valid_project_name
+    name = click.prompt("Enter a name for your project (letters, digits, underscore)")
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\click\termui.py", line 262, in prompt
+    value = prompt_func(prompt)
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\click\termui.py", line 245, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m11:05:59.385957 [debug] [MainThread]: Command `dbt init` failed at 11:05:59.385846 after 81.23 seconds
+[0m11:05:59.386306 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA3ECC4E90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA3EDE1370>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EA3EC97240>]}
+[0m11:05:59.386683 [debug] [MainThread]: Flushing usage events
+[0m11:06:00.343821 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m11:06:10.992300 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023123372120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023120F10B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023125CE7890>]}
+
+
+============================== 11:06:10.995936 | 2e7e685a-d3da-4b7f-9070-0523581c35cb ==============================
+[0m11:06:10.995936 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:06:10.996731 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'maximum_seed_size_mib': '1', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'invocation_command': 'dbt init dbt_case_ae_rent_cars', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m11:06:11.008156 [debug] [MainThread]: Starter project path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\include\starter_project
+[0m11:06:11.023177 [info ] [MainThread]: Setting up your profile.
+[0m11:06:15.630345 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+
+[0m11:06:15.635043 [error] [MainThread]: Traceback (most recent call last):
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\requires.py", line 198, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\requires.py", line 144, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\cli\main.py", line 504, in init
+    results = task.run()
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\task\init.py", line 363, in run
+    self.setup_profile(profile_name)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\task\init.py", line 264, in setup_profile
+    adapter = self.ask_for_adapter_choice()
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\task\init.py", line 245, in ask_for_adapter_choice
+    numeric_choice = click.prompt(prompt_msg, type=click.INT)
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\click\termui.py", line 262, in prompt
+    value = prompt_func(prompt)
+  File "C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\click\termui.py", line 245, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m11:06:15.636255 [debug] [MainThread]: Command `dbt init` failed at 11:06:15.636085 after 4.82 seconds
+[0m11:06:15.636730 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023125DB5220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023125D5D5B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023125D83350>]}
+[0m11:06:15.637242 [debug] [MainThread]: Flushing usage events
+[0m11:06:32.703197 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000015646AC2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000015644650B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001564943B890>]}
+
+
+============================== 11:06:32.706849 | 9e2ffe0f-5a4d-40a1-934a-8cbfb55e07cf ==============================
+[0m11:06:32.706849 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:06:32.707491 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'maximum_seed_size_mib': '1', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'invocation_command': 'dbt init dbt_case_ae_rentcars', 'log_path': 'logs'}
+[0m11:06:32.719256 [debug] [MainThread]: Starter project path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\include\starter_project
+[0m11:06:32.733576 [info ] [MainThread]: Setting up your profile.
+[0m11:21:59.915026 [info ] [MainThread]: Profile dbt_case_ae_rentcars written to C:\Users\muril\.dbt\profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m11:21:59.916843 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m11:21:59.917556 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:21:59.918018 [info ] [MainThread]: python version: 3.14.7
+[0m11:21:59.918475 [info ] [MainThread]: python path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Scripts\python.exe
+[0m11:21:59.918917 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m11:21:59.966619 [info ] [MainThread]: Using profiles dir at C:\Users\muril\.dbt
+[0m11:21:59.967250 [info ] [MainThread]: Using profiles.yml file at C:\Users\muril\.dbt\profiles.yml
+[0m11:21:59.967663 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_case_ae_rentcars\dbt_project.yml
+[0m11:21:59.969533 [info ] [MainThread]: adapter type: duckdb
+[0m11:21:59.969906 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:22:00.066337 [info ] [MainThread]: Configuration:
+[0m11:22:00.067021 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:22:00.067579 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m11:22:00.068050 [info ] [MainThread]: Required dependencies:
+[0m11:22:00.068498 [debug] [MainThread]: Executing "git --help"
+[0m11:22:00.071323 [info ] [MainThread]:  - git [[31mERROR[0m]
+
+[0m11:22:00.071758 [info ] [MainThread]: Connection:
+[0m11:22:00.072208 [info ] [MainThread]:   database: dev
+[0m11:22:00.072654 [info ] [MainThread]:   schema: main
+[0m11:22:00.073199 [info ] [MainThread]:   path: dev.duckdb
+[0m11:22:00.073715 [info ] [MainThread]:   config_options: None
+[0m11:22:00.074542 [info ] [MainThread]:   extensions: None
+[0m11:22:00.075447 [info ] [MainThread]:   settings: {}
+[0m11:22:00.076210 [info ] [MainThread]:   external_root: .
+[0m11:22:00.076779 [info ] [MainThread]:   use_credential_provider: None
+[0m11:22:00.077616 [info ] [MainThread]:   attach: None
+[0m11:22:00.078297 [info ] [MainThread]:   filesystems: None
+[0m11:22:00.078934 [info ] [MainThread]:   remote: None
+[0m11:22:00.079344 [info ] [MainThread]:   plugins: None
+[0m11:22:00.079812 [info ] [MainThread]:   disable_transactions: False
+[0m11:22:00.080722 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:22:00.248908 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:22:00.290109 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:22:00.290415 [debug] [MainThread]: On debug: select 1 as id
+[0m11:22:00.290628 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:22:00.305359 [debug] [MainThread]: SQL status: OK in 0.015 seconds
+[0m11:22:00.306156 [debug] [MainThread]: On debug: Close
+[0m11:22:00.306471 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:22:00.306985 [info ] [MainThread]: [31m1 check failed:[0m
+[0m11:22:00.307345 [info ] [MainThread]: Error from git --help: Could not find command, ensure it is in the user's PATH and that the user has permissions to run it: "git"
+
+[0m11:22:00.307809 [info ] [MainThread]: Your new dbt project "dbt_case_ae_rentcars" was created!
+Initialized new project in C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_case_ae_rentcars\dbt_case_ae_rentcars
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m11:22:00.308132 [info ] [MainThread]: [31mYour profile may need adjustments. You can find the logs of `dbt debug` above[0m
+[0m11:22:00.308956 [debug] [MainThread]: Command `dbt init` succeeded at 11:22:00.308857 after 927.78 seconds
+[0m11:22:00.309202 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:22:00.309458 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001564926A8B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000015646A127B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000015649791BF0>]}
+[0m11:22:00.309745 [debug] [MainThread]: Flushing usage events
+[0m11:22:01.186350 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m11:28:03.972530 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022538572120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022536110B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002253AEE7890>]}
+
+
+============================== 11:28:03.975698 | 63b58a80-0f50-4505-b1bd-9b5ea1a91f2d ==============================
+[0m11:28:03.975698 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:28:03.976275 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt init dbt_case_ae_rentcars', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'use_colors': 'True', 'log_path': 'logs'}
+[0m11:28:03.988010 [debug] [MainThread]: Starter project path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Lib\site-packages\dbt\include\starter_project
+[0m11:28:04.002702 [info ] [MainThread]: Setting up your profile.
+[0m11:28:13.635959 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m11:28:13.636937 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:28:13.637412 [info ] [MainThread]: python version: 3.14.7
+[0m11:28:13.637839 [info ] [MainThread]: python path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Scripts\python.exe
+[0m11:28:13.638158 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m11:28:13.685271 [info ] [MainThread]: Using profiles dir at C:\Users\muril\.dbt
+[0m11:28:13.685925 [info ] [MainThread]: Using profiles.yml file at C:\Users\muril\.dbt\profiles.yml
+[0m11:28:13.686424 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_case_ae_rentcars\dbt_project.yml
+[0m11:28:13.688300 [info ] [MainThread]: adapter type: duckdb
+[0m11:28:13.688648 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:28:13.778742 [info ] [MainThread]: Configuration:
+[0m11:28:13.780038 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:28:13.780545 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m11:28:13.780987 [info ] [MainThread]: Required dependencies:
+[0m11:28:13.781410 [debug] [MainThread]: Executing "git --help"
+[0m11:28:13.803784 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   history    EXPERIMENTAL: Rewrite history\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Set `HEAD` or the index to a known state\n   switch     Switch branches\n   tag        Create, list, delete or verify tags\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m11:28:13.804193 [debug] [MainThread]: STDERR: "b''"
+[0m11:28:13.804530 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m11:28:13.804857 [info ] [MainThread]: Connection:
+[0m11:28:13.805350 [info ] [MainThread]:   database: dev
+[0m11:28:13.805902 [info ] [MainThread]:   schema: main
+[0m11:28:13.806284 [info ] [MainThread]:   path: dev.duckdb
+[0m11:28:13.806592 [info ] [MainThread]:   config_options: None
+[0m11:28:13.806882 [info ] [MainThread]:   extensions: None
+[0m11:28:13.807174 [info ] [MainThread]:   settings: {}
+[0m11:28:13.807439 [info ] [MainThread]:   external_root: .
+[0m11:28:13.807720 [info ] [MainThread]:   use_credential_provider: None
+[0m11:28:13.807987 [info ] [MainThread]:   attach: None
+[0m11:28:13.808229 [info ] [MainThread]:   filesystems: None
+[0m11:28:13.808475 [info ] [MainThread]:   remote: None
+[0m11:28:13.808747 [info ] [MainThread]:   plugins: None
+[0m11:28:13.809015 [info ] [MainThread]:   disable_transactions: False
+[0m11:28:13.809447 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:28:13.972333 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:28:14.013549 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:28:14.013877 [debug] [MainThread]: On debug: select 1 as id
+[0m11:28:14.014145 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:28:14.029499 [debug] [MainThread]: SQL status: OK in 0.015 seconds
+[0m11:28:14.030292 [debug] [MainThread]: On debug: Close
+[0m11:28:14.030606 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:28:14.031123 [info ] [MainThread]: [32mAll checks passed![0m
+[0m11:28:14.031544 [info ] [MainThread]: Your new dbt project "dbt_case_ae_rentcars" was created!
+Initialized new project in C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_case_ae_rentcars\dbt_case_ae_rentcars
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m11:28:14.032443 [debug] [MainThread]: Command `dbt init` succeeded at 11:28:14.032340 after 10.28 seconds
+[0m11:28:14.032726 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:28:14.032982 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002253AD1A8B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022538498A70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002253B15BAC0>]}
+[0m11:28:14.033279 [debug] [MainThread]: Flushing usage events
+[0m11:28:14.638905 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m11:28:23.131115 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A36A5F2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A368180B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A36CF67890>]}
+
+
+============================== 11:28:23.134463 | 4d1506be-660e-4653-b8eb-5db447cfd024 ==============================
+[0m11:28:23.134463 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:28:23.135132 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'static_parser': 'True', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'invocation_command': 'dbt debug', 'log_path': 'logs'}
+[0m11:28:23.147099 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:28:23.148084 [info ] [MainThread]: python version: 3.14.7
+[0m11:28:23.148780 [info ] [MainThread]: python path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Scripts\python.exe
+[0m11:28:23.149181 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m11:28:23.251376 [info ] [MainThread]: Using profiles dir at C:\Users\muril\.dbt
+[0m11:28:23.252026 [info ] [MainThread]: Using profiles.yml file at C:\Users\muril\.dbt\profiles.yml
+[0m11:28:23.252506 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+[0m11:28:23.254452 [info ] [MainThread]: adapter type: duckdb
+[0m11:28:23.254980 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:28:23.255463 [info ] [MainThread]: Configuration:
+[0m11:28:23.255857 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:28:23.256263 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m11:28:23.256647 [info ] [MainThread]: Required dependencies:
+[0m11:28:23.256996 [debug] [MainThread]: Executing "git --help"
+[0m11:28:23.280674 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   history    EXPERIMENTAL: Rewrite history\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Set `HEAD` or the index to a known state\n   switch     Switch branches\n   tag        Create, list, delete or verify tags\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m11:28:23.281109 [debug] [MainThread]: STDERR: "b''"
+[0m11:28:23.281507 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m11:28:23.281932 [info ] [MainThread]: Connection:
+[0m11:28:23.282401 [info ] [MainThread]:   database: dev
+[0m11:28:23.282853 [info ] [MainThread]:   schema: main
+[0m11:28:23.283403 [info ] [MainThread]:   path: dev.duckdb
+[0m11:28:23.283870 [info ] [MainThread]:   config_options: None
+[0m11:28:23.284239 [info ] [MainThread]:   extensions: None
+[0m11:28:23.284540 [info ] [MainThread]:   settings: {}
+[0m11:28:23.284821 [info ] [MainThread]:   external_root: .
+[0m11:28:23.285097 [info ] [MainThread]:   use_credential_provider: None
+[0m11:28:23.285341 [info ] [MainThread]:   attach: None
+[0m11:28:23.285608 [info ] [MainThread]:   filesystems: None
+[0m11:28:23.285861 [info ] [MainThread]:   remote: None
+[0m11:28:23.286130 [info ] [MainThread]:   plugins: None
+[0m11:28:23.286402 [info ] [MainThread]:   disable_transactions: False
+[0m11:28:23.286917 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:28:23.464134 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:28:23.503605 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:28:23.503926 [debug] [MainThread]: On debug: select 1 as id
+[0m11:28:23.504148 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:28:23.519422 [debug] [MainThread]: SQL status: OK in 0.015 seconds
+[0m11:28:23.520218 [debug] [MainThread]: On debug: Close
+[0m11:28:23.520605 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:28:23.521167 [info ] [MainThread]: [31m1 check failed:[0m
+[0m11:28:23.521651 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml> not found
+
+[0m11:28:23.522454 [debug] [MainThread]: Command `dbt debug` failed at 11:28:23.522335 after 0.57 seconds
+[0m11:28:23.522731 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:28:23.522990 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A36D0376F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A36D257770>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A36D01BDF0>]}
+[0m11:28:23.523285 [debug] [MainThread]: Flushing usage events
+[0m11:28:24.108495 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m11:29:31.120559 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B7865D2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B784170B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B788F43890>]}
+
+
+============================== 11:29:31.123892 | f74792e7-90c8-4ab8-9827-557de65e8fb6 ==============================
+[0m11:29:31.123892 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:29:31.124558 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'version_check': 'True', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'invocation_command': 'dbt debug', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m11:29:31.137207 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:29:31.138083 [info ] [MainThread]: python version: 3.14.7
+[0m11:29:31.138607 [info ] [MainThread]: python path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Scripts\python.exe
+[0m11:29:31.138960 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m11:29:31.229872 [info ] [MainThread]: Using profiles dir at C:\Users\muril\.dbt
+[0m11:29:31.230476 [info ] [MainThread]: Using profiles.yml file at C:\Users\muril\.dbt\profiles.yml
+[0m11:29:31.230958 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+[0m11:29:31.232733 [info ] [MainThread]: adapter type: duckdb
+[0m11:29:31.233219 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:29:31.233559 [info ] [MainThread]: Configuration:
+[0m11:29:31.233840 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:29:31.234117 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m11:29:31.234383 [info ] [MainThread]: Required dependencies:
+[0m11:29:31.234683 [debug] [MainThread]: Executing "git --help"
+[0m11:29:31.254554 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   history    EXPERIMENTAL: Rewrite history\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Set `HEAD` or the index to a known state\n   switch     Switch branches\n   tag        Create, list, delete or verify tags\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m11:29:31.254992 [debug] [MainThread]: STDERR: "b''"
+[0m11:29:31.255336 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m11:29:31.255665 [info ] [MainThread]: Connection:
+[0m11:29:31.256101 [info ] [MainThread]:   database: dev
+[0m11:29:31.256424 [info ] [MainThread]:   schema: main
+[0m11:29:31.256714 [info ] [MainThread]:   path: dev.duckdb
+[0m11:29:31.256977 [info ] [MainThread]:   config_options: None
+[0m11:29:31.257437 [info ] [MainThread]:   extensions: None
+[0m11:29:31.257824 [info ] [MainThread]:   settings: {}
+[0m11:29:31.258144 [info ] [MainThread]:   external_root: .
+[0m11:29:31.258555 [info ] [MainThread]:   use_credential_provider: None
+[0m11:29:31.258948 [info ] [MainThread]:   attach: None
+[0m11:29:31.259236 [info ] [MainThread]:   filesystems: None
+[0m11:29:31.259529 [info ] [MainThread]:   remote: None
+[0m11:29:31.259807 [info ] [MainThread]:   plugins: None
+[0m11:29:31.260045 [info ] [MainThread]:   disable_transactions: False
+[0m11:29:31.260483 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:29:31.420008 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:29:31.458760 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:29:31.459099 [debug] [MainThread]: On debug: select 1 as id
+[0m11:29:31.459331 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:29:31.472436 [debug] [MainThread]: SQL status: OK in 0.013 seconds
+[0m11:29:31.473308 [debug] [MainThread]: On debug: Close
+[0m11:29:31.473644 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:29:31.474295 [info ] [MainThread]: [31m1 check failed:[0m
+[0m11:29:31.474956 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml> not found
+
+[0m11:29:31.475754 [debug] [MainThread]: Command `dbt debug` failed at 11:29:31.475653 after 0.53 seconds
+[0m11:29:31.476028 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:29:31.476291 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B7890176F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B789173770>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B788FFBDF0>]}
+[0m11:29:31.476638 [debug] [MainThread]: Flushing usage events
+[0m11:29:32.071706 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m11:33:06.503813 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF69B2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF4550B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF9327890>]}
+
+
+============================== 11:33:06.506950 | e977f94a-9a69-409a-8c63-3201a968ed12 ==============================
+[0m11:33:06.506950 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:33:06.507499 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'maximum_seed_size_mib': '1', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'invocation_command': 'dbt debug', 'log_path': 'logs'}
+[0m11:33:06.519782 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:33:06.520573 [info ] [MainThread]: python version: 3.14.7
+[0m11:33:06.521201 [info ] [MainThread]: python path: C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\.venv\Scripts\python.exe
+[0m11:33:06.521615 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m11:33:06.620310 [info ] [MainThread]: Using profiles dir at C:\Users\muril\.dbt
+[0m11:33:06.620957 [info ] [MainThread]: Using profiles.yml file at C:\Users\muril\.dbt\profiles.yml
+[0m11:33:06.621456 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+[0m11:33:06.623333 [info ] [MainThread]: adapter type: duckdb
+[0m11:33:06.623747 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:33:06.624084 [info ] [MainThread]: Configuration:
+[0m11:33:06.624368 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:33:06.624658 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m11:33:06.624930 [info ] [MainThread]: Required dependencies:
+[0m11:33:06.625243 [debug] [MainThread]: Executing "git --help"
+[0m11:33:06.644472 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   history    EXPERIMENTAL: Rewrite history\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Set `HEAD` or the index to a known state\n   switch     Switch branches\n   tag        Create, list, delete or verify tags\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m11:33:06.644913 [debug] [MainThread]: STDERR: "b''"
+[0m11:33:06.645269 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m11:33:06.645729 [info ] [MainThread]: Connection:
+[0m11:33:06.646135 [info ] [MainThread]:   database: dev
+[0m11:33:06.646424 [info ] [MainThread]:   schema: main
+[0m11:33:06.646834 [info ] [MainThread]:   path: dev.duckdb
+[0m11:33:06.647241 [info ] [MainThread]:   config_options: None
+[0m11:33:06.647699 [info ] [MainThread]:   extensions: None
+[0m11:33:06.648099 [info ] [MainThread]:   settings: {}
+[0m11:33:06.648460 [info ] [MainThread]:   external_root: .
+[0m11:33:06.648805 [info ] [MainThread]:   use_credential_provider: None
+[0m11:33:06.649120 [info ] [MainThread]:   attach: None
+[0m11:33:06.649434 [info ] [MainThread]:   filesystems: None
+[0m11:33:06.649796 [info ] [MainThread]:   remote: None
+[0m11:33:06.650080 [info ] [MainThread]:   plugins: None
+[0m11:33:06.650357 [info ] [MainThread]:   disable_transactions: False
+[0m11:33:06.650869 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:33:06.837503 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:33:06.881005 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:33:06.881334 [debug] [MainThread]: On debug: select 1 as id
+[0m11:33:06.881657 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:33:06.895565 [debug] [MainThread]: SQL status: OK in 0.014 seconds
+[0m11:33:06.896342 [debug] [MainThread]: On debug: Close
+[0m11:33:06.896651 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:33:06.897154 [info ] [MainThread]: [31m1 check failed:[0m
+[0m11:33:06.897499 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml> not found
+
+[0m11:33:06.898639 [debug] [MainThread]: Command `dbt debug` failed at 11:33:06.898444 after 0.59 seconds
+[0m11:33:06.899078 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:33:06.899839 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF93F76F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF9553770>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001FDF93DBDF0>]}
+[0m11:33:06.900241 [debug] [MainThread]: Flushing usage events
+[0m11:33:07.783802 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m23:11:39.878606 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E20332120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E1DED0B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E22D0B890>]}
+
+
+============================== 23:11:39.883256 | cdcf9713-bbd9-4fe2-b047-d2e3b3c6bb0e ==============================
+[0m23:11:39.883256 [info ] [MainThread]: Running with dbt=1.12.5
+[0m23:11:39.883894 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'maximum_seed_size_mib': '1', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'hints_enabled': 'True', 'invocation_command': 'dbt test --select models:stg_parceiro', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m23:11:39.884334 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m23:11:39.885065 [debug] [MainThread]: Command `dbt test` failed at 23:11:39.884968 after 0.26 seconds
+[0m23:11:39.885342 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E22DA8640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E22DA03B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014E22D459D0>]}
+[0m23:11:39.885622 [debug] [MainThread]: Flushing usage events
+[0m23:11:40.462550 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m23:32:24.545917 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C680A2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C65C80B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C6AA17890>]}
+
+
+============================== 23:32:24.549251 | fee5abad-4bf6-44e3-84be-63c1ab17ddea ==============================
+[0m23:32:24.549251 [info ] [MainThread]: Running with dbt=1.12.5
+[0m23:32:24.549879 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'static_parser': 'True', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'hints_enabled': 'True', 'invocation_command': 'dbt deps', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m23:32:24.550510 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m23:32:24.551340 [debug] [MainThread]: Command `dbt deps` failed at 23:32:24.551209 after 0.18 seconds
+[0m23:32:24.551671 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C6A84AB10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C6AA945F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027C6AAC4270>]}
+[0m23:32:24.552083 [debug] [MainThread]: Flushing usage events
+[0m23:32:25.132330 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m01:11:29.791048 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016578D52120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000165768F0B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001657B6C3890>]}
+
+
+============================== 01:11:29.794249 | 8aab8a32-fac1-4b60-8092-dec74e6d3b5c ==============================
+[0m01:11:29.794249 [info ] [MainThread]: Running with dbt=1.12.5
+[0m01:11:29.794937 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'maximum_seed_size_mib': '1', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'invocation_command': 'dbt clean', 'log_path': 'logs'}
+[0m01:11:29.795504 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m01:11:29.796205 [debug] [MainThread]: Command `dbt clean` failed at 01:11:29.796114 after 0.26 seconds
+[0m01:11:29.796486 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001657B4FAB10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001657B7485F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001657B780270>]}
+[0m01:11:29.796775 [debug] [MainThread]: Flushing usage events
+[0m01:11:30.432733 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m20:20:16.152626 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242F0C12120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242EE7A4B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242F3587890>]}
+
+
+============================== 20:20:16.158109 | a7062710-6121-470f-bfe1-3f5f36446499 ==============================
+[0m20:20:16.158109 [info ] [MainThread]: Running with dbt=1.12.5
+[0m20:20:16.158963 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'version_check': 'True', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'invocation_command': 'dbt deps', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m20:20:16.159581 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m20:20:16.160357 [debug] [MainThread]: Command `dbt deps` failed at 20:20:16.160250 after 0.31 seconds
+[0m20:20:16.160635 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242F33BAB10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242F36045F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000242F3634270>]}
+[0m20:20:16.160969 [debug] [MainThread]: Flushing usage events
+[0m20:20:16.768820 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m21:30:09.674487 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275DB8D2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275D945CB90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275DE2AB890>]}
+
+
+============================== 21:30:09.678269 | 74966881-81b6-4545-924a-d7c1cd5354ef ==============================
+[0m21:30:09.678269 [info ] [MainThread]: Running with dbt=1.12.5
+[0m21:30:09.678888 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'maximum_seed_size_mib': '1', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'invocation_command': 'dbt build', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'use_colors': 'True', 'log_path': 'logs'}
+[0m21:30:09.679317 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m21:30:09.679959 [debug] [MainThread]: Command `dbt build` failed at 21:30:09.679872 after 0.14 seconds
+[0m21:30:09.680240 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275DE338640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275DE3343B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275DE2E59D0>]}
+[0m21:30:09.680544 [debug] [MainThread]: Flushing usage events
+[0m21:30:10.271933 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m08:36:11.106777 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F6F4E2120>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F6D080B90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F71E53890>]}
+
+
+============================== 08:36:11.113222 | 506baf5a-ae9f-4944-83cf-66d919ec81fe ==============================
+[0m08:36:11.113222 [info ] [MainThread]: Running with dbt=1.12.5
+[0m08:36:11.114011 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'version_check': 'True', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\muril\\.dbt', 'indirect_selection': 'eager', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'invocation_command': 'dbt deps', 'log_path': 'logs'}
+[0m08:36:11.114963 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\muril\OneDrive\Documentos\repo-case-ae-rentcars\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m08:36:11.116182 [debug] [MainThread]: Command `dbt deps` failed at 08:36:11.116036 after 0.33 seconds
+[0m08:36:11.116522 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F71C8AB10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F71ED45F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F71F08270>]}
+[0m08:36:11.116836 [debug] [MainThread]: Flushing usage events
+[0m08:36:11.765253 [debug] [MainThread]: An error was encountered while trying to flush usage events

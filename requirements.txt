@@ -1,0 +1,9 @@
+# Dependências do dbt para serem instaladas
+dbt-core==1.12.5
+dbt-duckdb==1.5.4
+
+# Instalação do pacote do DuckDB para fins de execução local
+duckdb==1.5.5
+
+# Pacotes de bibliotecas utilitárias durante o processo
+python-dotenv==1.2.3

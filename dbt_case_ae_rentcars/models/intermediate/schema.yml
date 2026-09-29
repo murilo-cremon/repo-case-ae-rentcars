@@ -1,0 +1,240 @@
+version: 2
+
+models:
+  - name: int_sessoes_enriquecidas
+    description: >
+      Camada intermediária de sessões enriquecidas. Agrega métricas de buscas por sessão,
+      calcula a duração total e aplica tratamento para sessões com dados inconsistentes/incompletos.
+    columns:
+      - name: sk_sessao
+        description: "Surrogate Key (Hash MD5) única gerada para a camada intermediária de sessões."
+        tests:
+          - unique
+          - not_null
+
+      - name: id_sessao
+        description: "Identificador natural da sessão do usuário no aplicativo/site."
+        tests:
+          - unique
+          - not_null
+
+      - name: id_usuario
+        description: "Identificador único do usuário que realizou a sessão."
+        
+      - name: dt_hora_inicio
+        description: "Data e hora de início da sessão."
+        tests:
+          - not_null
+
+      - name: dt_hora_fim
+        description: "Data e hora de encerramento da sessão."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= dt_hora_inicio"
+
+      - name: qt_duracao_sessao_minutos
+        description: "Duração total calculada da sessão em minutos."
+        tests:
+          # [EXPECTATIONS] Garante que a duração da sessão esteja entre 0 min e 24h (1440 min)
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 1440
+              config:
+                severity: warn
+
+      - name: qt_total_buscas
+        description: "Quantidade total de pesquisas por veículos realizadas durante a sessão."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+      #- name: qt_buscas_com_sucesso
+      #  description: "Quantidade de buscas que retornaram opções de veículos disponíveis."
+      #  tests:
+      #    - not_null
+      #    - dbt_utils.expression_is_true:
+      #        expression: ">= 0"
+
+      - name: flg_houve_clique
+        description: "Flag indicando se a sessão culminou em uma reserva efetuada."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: flg_volume_busca_anormal
+        description: "Flag identifica se o volume de busca foi normal"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+  - name: int_reservas_com_cancelamento
+    description: >
+      Camada intermediária de reservas enriquecidas. Consolida informações de reservas,
+      eventos de cancelamento, aplica a trava de segurança no valor reembolsado e calcula a receita líquida retida.
+    columns:
+      - name: sk_reserva
+        description: "Surrogate Key (Hash MD5) única gerada para a camada intermediária de reservas."
+        tests:
+          - unique
+          - not_null
+
+      - name: id_reserva
+        description: "Identificador natural e chave primária da reserva."
+        tests:
+          - unique
+          - not_null
+
+      - name: id_sessao
+        description: "Identificador da sessão onde a reserva foi realizada (chave estrangeira para int_sessoes_enriquecidas)."
+        tests:
+          - not_null
+
+      - name: id_usuario
+        description: "Identificador do usuário responsável pela reserva."
+
+      - name: id_parceiro
+        description: "Identificador da locadora/parceiro proprietário do veículo."
+        tests:
+          - not_null
+
+      - name: dt_hora_reserva
+        description: "Data e hora em que a reserva foi efetuada pelo cliente."
+        tests:
+          - not_null
+
+      - name: dt_retirada
+        description: "Data prevista/efetiva para retirada do veículo."
+        tests:
+          - not_null
+
+      - name: dt_devolucao
+        description: "Data prevista/efetiva para devolução do veículo."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= dt_retirada"
+
+      - name: qt_dias_locacao
+        description: "Quantidade total de dias cobrados/reservados da locação."
+        tests:
+          - not_null
+          # [EXPECTATIONS] Duração do aluguel razoável (entre 1 e 365 dias)
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 365 # Definido juntamente ao Stakeholder
+
+      - name: cod_moeda
+        description: "Código ISO de 3 letras da moeda em que a transação foi realizada."
+        tests:
+          - not_null
+          # [EXPECTATIONS] Valida que o código da moeda sempre tem exatamente 3 caracteres (padrão ISO)
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 3
+
+      - name: vlr_total_reserva
+        description: "Valor bruto total negociado na reserva contratada."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: true # Garante estritamente total_amount > 0 (exclui o 0)
+              row_condition: "tp_status_reserva in ('CONFIRMADO', 'CONCLUÍDO')"
+
+      - name: flg_cancelada
+        description: "Flag que verifica se houve cancelamento ou não."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: dt_hora_cancelamento
+        description: "Data e hora em que o cancelamento foi registrado (nulo para reservas não canceladas)."
+
+      - name: des_motivo_cancelamento
+        description: "Descrição detalhada ou categoria do motivo do cancelamento."
+
+      - name: vlr_reembolsado_valido
+        description: >
+          Valor do reembolso final após aplicação da trava de segurança. 
+          REGRA DE NEGÓCIO: NUNCA pode exceder o valor total original da reserva (vlr_total_reserva).
+        tests:
+          - not_null
+          # [MACRO CUSTOMIZADA] Garante que o reembolso válido nunca supere o valor bruto da reserva
+          - assert_valor_nao_excede: # Utilização de macro para validar
+              compare_column: vlr_total_reserva
+              config:
+                severity: warn
+
+      - name: vlr_receita_liquida_reserva
+        description: "Receita líquida retida da reserva (Valor Total - Reembolso Válido)."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+              config:
+                severity: error
+
+  - name: int_desempenho_parceiro
+    description: >
+      Camada intermediária de consolidação do cadastro e métricas contratuais de parceiros.
+      Aplica regras de ajuste e trava (piso e teto) na taxa de comissão contratada.
+    columns:
+      - name: sk_parceiro
+        description: "Surrogate Key (Hash MD5) única gerada para a camada intermediária de parceiros."
+        tests:
+          - unique
+          - not_null
+
+      - name: id_parceiro
+        description: "Identificador natural e chave primária do parceiro comercial."
+        tests:
+          - unique
+          - not_null
+
+      - name: nome_parceiro
+        description: "Nome empresarial ou de fantasia do parceiro/locadora."
+        tests:
+          - not_null
+
+      - name: des_categoria_comercial
+        description: "Categorização comercial do parceiro sobre tier a qual pertence"
+        tests:
+          - not_null
+
+      - name: tp_status_parceiro
+        description: "Status do contrato do parceiro. Somente ativos são elegíveis para a regra."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['ATIVO', 'INATIVO', 'SUSPENSO']
+
+      - name: vlr_comissao_estimada
+        description: "Percentual de comissão original pré-acordado em contrato (em decimal, ex: 0.15 = 15%)."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+      - name: vlr_taxa_comissao_ajustada
+        description: >
+          Taxa de comissão aplicada ao parceiro após regras operacionais.
+          REGRA DE NEGÓCIO: Trava obrigatória com piso em 5% (0.05) e teto em 30% (0.30).
+        tests:
+          - not_null
+          # [EXPECTATIONS] Validação estrita das faixas permitidas para a comissão
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0.05
+              max_value: 0.30
+              config:
+                severity: error
+
+      - name: flg_comissao_ajustada
+        description: "Flag indicativa se a taxa de comissão precisou sofrer intervenção pelo piso/teto."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]

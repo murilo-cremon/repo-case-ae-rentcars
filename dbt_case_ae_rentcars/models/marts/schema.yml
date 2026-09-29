@@ -1,0 +1,1090 @@
+version: 2
+
+groups: # Definição do grupo
+  - name: analytics_engineering
+    owner:
+      name: Murilo
+      email: murio@murilo.com
+
+models:
+  # --------------------------
+  # Dimensão de usuários
+  # --------------------------
+  - name: dim_usuarios
+    description: "Dimensão que consolidada as informações dos usuários da plataforma através de características baseando-se nas ações dos mesmos."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      contem_pii: false
+    columns:
+      - name: sk_usuario
+        description: "Surrogate Key do Usuário, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: id_usuario
+        description: "Identificador padrão e único do usuário dentro da plataforma."
+        datatype: int
+        constraint:
+          - type: unique
+          - type: not_null
+        tests:
+          - unique
+          - not_null
+
+      - name: dt_primeira_sessao
+        description: "Data da primeira sessão que o usuário realizou através de login dentro da plataforma."
+        datatype: date
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: dt_ultima_sessao
+        description: "Data da última sessão que o usuário ficou ou passou na plataforma através de login dentro da plataforma."
+        datatype: date
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: vlr_preco_medio_pesquisado
+        description: "Data da última sessão que o usuário ficou ou passou na plataforma através de login dentro da plataforma."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null
+        tests:
+          - not_null
+
+      - name: qt_total_buscas_historico
+        description: "Quantidade total de buscas que o usuário realizou durante todo seu ciclo na plataforma."
+        datatype: int
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: qt_total_reservas_historico
+        description: "Quantidade de reservas/aluguel que já realizou durante o uso da plataforma."
+        datatype: int
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: qt_minutos_total_sessao
+        description: "Total de minutos gastos ao longo do ciclo de vida que o usuário tem na plataforma."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+      - name: qt_media_minutos_sessao
+        description: "Média de minutos que o usuário utiliza a plataforma."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+      - name: qt_sessoes_anonimas
+        description: "Quantidade de sessões anônimas que o usuário já realizou qualquer tipo de atividade dentro da plataforma."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+      - name: qt_acesso_mobile
+        description: "Quantidade total de vezes que o usuário já acessou via dispositivo mobile."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null         
+
+      - name: qt_acesso_tablet
+        description: "Quantidade total de vezes que o usuário já acessou via dispositivo tablet."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null       
+
+      - name: qt_acesso_desktop
+        description: "Quantidade total de vezes que o usuário já acessou via dispositivo desktop."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+  # --------------------------
+  # Dimensão de parceiros
+  # --------------------------
+  - name: dim_parceiros
+    description: "Dimensão responsável por consolidar todas as informações e características dos parceiros da plataforma."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      contem_pii: false    
+    columns:
+      - name: sk_parceiro
+        description: "Surrogate Key do Parceiro, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key        
+        tests:
+          - unique
+          - not_null
+
+      - name: id_parceiro
+        description: "Identificador padrão e único do parceiro dentro da plataforma."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+        tests:
+          - unique
+          - not_null
+
+      - name: nome_parceiro
+        description: "Nome do parceiro da plataforma"
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null
+
+      - name: cod_pais_operacao
+        description: "Código do país de operação que o parceiro está situado."
+        datatype: varchar
+        constraint:
+          - type: not_null    
+          - type: check
+            expression: "length(cod_pais_operacao) = 2"
+            name: chk_tamanho_cod_pais   
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_equal: # Verifica se o código possui apenas 2 caracteres
+              value: 2
+
+      - name: des_pais_operacao
+        description: "Descrição do código do país de operação que o parceiro está situado."
+        datatype: varchar
+        tests:
+          - not_null
+
+      - name: des_categoria_comercial
+        description: "Campo responsável por identificar qual categoria/tier comercial o parceiro pertence."
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null          
+
+      - name: dt_hora_cadastro
+        description: "Data e hora que o parceiro foi criado na plataforma."
+        datatype: timestamp
+        constraint:
+          - type: not_null   
+        tests:
+          - not_null
+
+      - name: dt_hora_atualizacao
+        datatype: timestamp      
+        description: "Data e hora que o parceiro sofreu atualização na plataforma."
+                  
+      - name: email_contato
+        description: "E-mail de contato direto do parceiro cadastrado na plataforma."
+        datatype: varchar
+        constraint:
+          - type: check
+            name: chk_email_contato
+            expression: "email_contato is not null and regexp_matches(email_contato, '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')"       
+        tests:
+          - dbt_expectations.expect_column_values_to_match_regex: # Verifica se email está valido quando preenchido
+              regex: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+              row_condition: "email_contato is not null" 
+
+      - name: vlr_taxa_comissao
+        description: "Valor da taxa de comissão que é efetuada ao parceiro."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null         
+        tests:
+          - not_null          
+
+      - name: vlr_comissao_estimada
+        description: "Valor da comissão estimada que deve ser repassada ao parceiro cadastrado."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null    
+
+      - name: vlr_taxa_comissao_ajustada
+        description: "Valor da comissão já ajustada calculada corretamente para fins de repasse."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null    
+
+      - name: vlr_total_transacionado
+        description: "Valor total transacionado pelo parceiro dentro da plataforma."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null
+
+      - name: vlr_total_receita_liquida
+        description: "Valor da receita liquida que o parceiro já gerou."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null    
+
+      - name: qt_total_reservas
+        description: "Quantidade total de reservas/locações que o parceiro já realizou dentro da plataforma."
+        datatype: int
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null
+                    
+      - name: flg_comissao_ajustada
+        description: "Flag que identifica se a comissão para o parceiro foi ajustada ou não."
+        datatype: boolean
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]
+
+# --------------------------
+# Dimensão de data
+# --------------------------
+  - name: dim_data
+    description: "Dimensão responsável por enriquecer a visão no quesito tempo, facilitando a quebras em diferentes granularidades."
+    description: "Dimensão responsável por consolidar todas as informações e características dos parceiros da plataforma."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao", "tempo"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc", "fatos"]
+      contem_pii: false       
+    columns:
+      - name: sk_data
+        description: "Surrogate Key da data, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key        
+        tests:
+          - unique
+          - not_null
+
+      - name: dt_registro
+        description: "Data preenchida na forma original para fins de consulta e também como chave estrangeira para junções em tabelas fatos."
+        datatype: date
+        constraint:
+          - type: unique
+          - type: not_null
+        tests:
+          - unique
+          - not_null
+
+      - name: nr_ano
+        description: "Identifica o ano referente a data."
+        datatype: int
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null          
+
+      - name: nr_trimestre
+        description: "Identifica o trimestre referente a data."
+        datatype: int
+        constraint:
+          - type: not_null         
+        tests:
+          - not_null     
+
+      - name: nr_mes
+        description: "Identifica o número do mês referente a data."
+        datatype: int
+        constraint:
+          - type: not_null
+          - type: check
+            expression: "nr_mes between 1 and 12"               
+        tests:
+          - not_null 
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 12
+
+      - name: nr_dia_do_mes
+        description: "Identifica o número do dia dentro de determinado mês referente a data."
+        datatype: int
+        constraint:
+          - type: not_null        
+          - type: check
+            expression: "nr_dia_do_mes between 1 and 31"             
+        tests:
+          - not_null 
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 31
+
+      - name: des_ano_mes
+        description: "Campo para fins de formatação mostra somente ano e mês."
+        datatype: varchar
+        constraint:
+          - type: not_null            
+        tests:
+          - not_null          
+
+      - name: des_nome_mes
+        description: "Campo que mostra o nome do mês."
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null  
+          - accepted_values:
+              values: [
+                'Janeiro',
+                'Fevereiro',
+                'Março',
+                'Abril',
+                'Maio',
+                'Junho',
+                'Julho',
+                'Agosto',
+                'Setembro',
+                'Outubro',
+                'Novembro',
+                'Dezembro'
+              ]
+
+      - name: nome_dia_semana
+        description: "Nome do dia da semana"
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null  
+          - accepted_values:
+              values: [
+                'Segunda-feira',
+                'Terça-feira',
+                'Quarta-feira',
+                'Quinta-feira',
+                'Sexta-feira',
+                'Sábado',
+                'Domingo'
+              ]
+
+      - name: flg_fim_semana
+        description: "Flag responsável por identificar se o dia é final de semana ou não."
+        datatype: boolean
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null  
+          - accepted_values:
+              values: [TRUE, FALSE]
+
+# --------------------------
+# Dimensão de detalhe reserva
+# --------------------------
+  - name: dim_detalhe_reserva
+    description: "Dimensão Junk que tem como objetivo armazenar as informações extras sobres as reservas/locação dos veículos dentro da plataforma."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao", "junk", "locacao"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      contem_pii: false    
+    columns:
+      - name: sk_detalhe_reserva
+        description: "Surrogate Key da dimensão junk, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key            
+        tests:
+          - unique
+          - not_null
+
+      - name: des_local_retirada
+        description: "Cidade que o usuário realizará a retirada do veículo conforme combinado na plataforma."
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null  
+
+      - name: des_categoria_veiculo
+        description: "Campo responsável por identificar a qual categoria o veículo pertence."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null   
+
+      - name: des_forma_pagamento
+        description: "Forma de pagamento que foi realizado a reserva/locação do veículo."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: cod_moeda
+        description: "Código da moeda que foi realizado o pagamento."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: check
+            expression: "length(cod_moeda) = 3"        
+        tests:
+          - not_null     
+          - dbt_expectations.expect_column_value_lengths_to_equal: # Verifica se o código possui apenas 3 caracteres
+              value: 3
+
+# --------------------------
+# Dimensão de motivo cancelamento
+# --------------------------
+  - name: dim_motivo_cancelamento
+    description: "Dimensão Junk que tem como objetivo armazenar as informações extras sobres as os motivos de cancelamento das reservas/locação."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao", "junk", "cancelamento"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      contem_pii: false       
+    columns:
+      - name: sk_motivacao_cancelamento
+        description: "Surrogate Key da dimensão junk, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key           
+        tests:
+          - unique
+          - not_null
+
+      - name: tp_status_reembolso
+        description: "Campo que identifica como que está o status do reembolso para determinado cancelamento de reserva/locação."
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['PENDENTE', 'NEGADO', 'PROCESSADO', 'POSSÍVEL CANCELAMENTO']
+
+      - name: des_responsavel_cancelamento
+        description: "Campo que identifica o responsável pelo cancelamento de reserva/locação."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null     
+          - accepted_values:
+              values: ['ADMINISTRADOR', 'CLIENTE', 'PARCEIRO', 'SISTEMA', NÃO PREENCHIDO]            
+              
+      - name: des_motivo_cancelamento
+        description: "Descrição do motivo do cancelulamento referente a reserva/locação."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null               
+
+# --------------------------
+# Dimensão de Origem Campanha
+# --------------------------
+  - name: dim_origem_campanha
+    description: "Dimensão que tem como objetivo armazenar as informações as origens de campanhas."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "dimensao", "junk", "campanha"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      contem_pii: false         
+    columns:
+      - name: sk_origem_campanha
+        description: "Surrogate Key da dimensão junk, utilizada para preservar a chave natural e utilizada como chave estrangeiras nas tabelas fatos."
+        datatype: varchar
+        constraint:
+          - type: unique
+          - type: not_null
+          - type: primary_key           
+        tests:
+          - unique
+          - not_null  
+
+      - name: des_canal_aquisicao
+        description: "Campo que identifica o canal de aquisição do usuário para a plataforma."
+        datatype: varchar
+        constraint:
+          - type: not_null
+        tests:
+          - not_null 
+
+      - name: des_utm_origem
+        description: "Origem do UTM de onde que o usuário acessou que conseguiu chegar na plataforma."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: des_utm_campanha
+        description: "Origem de qual campanha via UTM que o usuário acessou que conseguiu chegar na plataforma."
+        datatype: varchar
+
+      - name: tp_dispositivo
+        description: "Tipo de dispositivo que o usuário acessou."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null          
+
+      - name: des_pais_operacao
+        description: "País qual o usuário realizou o acesso a plataforma."
+        datatype: varchar
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+# --------------------------
+# Fato Cancelamentos
+# --------------------------
+  - name: fct_cancelamentos
+    description: "Tabela fato responsável por armazenar informações dos motivos e características para entender os cancelamentos que ocorrem de reservas/locação."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "fato", "cancelamento", "motivo"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]
+      #contem_pii: false    
+    columns:
+      - name: sk_usuario
+        description: "Surrogate Key do usuário, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de usuário."
+        datatype: varchar
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null 
+
+    columns:
+      - name: sk_parceiro
+        description: "Surrogate Key do parceiro, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de parceiro."
+        datatype: varchar    
+
+    columns:
+      - name: sk_data_cancelamento
+        description: "Surrogate Key de data, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+    columns:
+      - name: sk_motivacao_cancelamento
+        description: "Surrogate Key de motivação cancelamento, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de motivação cancelamento."
+        datatype: varchar
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+    columns:
+      - name: id_reserva
+        description: "Dimensão degenerada, que tem por objetivo identificar qual é identificador da reserva/locação."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null
+
+    columns:
+      - name: id_cancelamento
+        description: "Dimensão degenerada, que tem por objetivo identificar qual é identificador do cancelamento."
+        datatype: int
+        constraint:
+          - type: not_null           
+        tests:
+          - not_null  
+
+    columns:
+      - name: hr_cancelamento
+        description: "Dimensão degenerada, tem por objetivo identificar a hora que ocorreu o cancelamento."
+        datatype: time
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null
+
+    columns:
+      - name: flg_cancelamento_tardio
+        description: "Flag com responsabilidade de identificar se o cancelamento foi tardio ou não."
+        datatype: boolean
+        constraint:
+          - type: not_null         
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]
+
+    columns:
+      - name: flg_cancelamento_sem_reembolso
+        description: "Flag responsável por identificar se o cancelamento foi sem reembolso."
+        datatype: boolean
+        constraint:
+          - type: not_null            
+        tests:
+          - not_null 
+          - accepted_values:
+              values: [TRUE, FALSE]
+
+    columns:
+      - name: qt_dias_antecedencia_retirada
+        description: "Quantidade de dias que o veículo foi retirada com antecedência."
+        datatype: int
+        constraint:
+          - type: not_null            
+        tests:
+          - not_null
+
+    columns:
+      - name: vlr_reembolsado_valido
+        description: "Valor reembolsado de acordo com o cancelamento."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null                                
+
+# --------------------------
+# Fato Reservas
+# --------------------------
+  - name: fct_reservas
+    description: "Tabela fato responsável por armazenar informações de reserva/locação por usuário e parceiro, para mensurar resultados e gerar ações estratégicas."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "fato", "cancelamento", "reserva", "locacao"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]    
+    columns:
+      - name: sk_reserva
+        description: "Surrogate Key da reserva, diferente das outras surrogates keys, essa está na tabela somente para manter a integridade em formato transacional."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: unique
+          - type: primary_key        
+        tests:
+          - unique
+          - not_null
+
+      - name: sk_usuario
+        description: "Surrogate Key do usuário, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de usuário."
+        datatype: varchar
+        constraint:
+          - type: foreign_key
+            to: ref('dim_usuarios')
+            to_columns: [sk_usuario]
+        tests:
+          - relationships:
+              to: ref('dim_usuarios')
+              field: sk_usuario # Realiza integridade referencial para garantir que a SK exista
+
+      - name: sk_parceiro
+        description: "Surrogate Key do parceiro, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de parceiro."
+        datatype: varchar
+        constraint:
+          - type: foreign_key
+            to: ref('dim_parceiros')
+            to_columns: [sk_parceiro]        
+        tests:
+          - relationships:
+              to: ref('dim_parceiros')
+              field: sk_parceiro # Realiza integridade referencial para garantir que a SK exista
+
+      - name: sk_data_reserva
+        description: "Surrogate Key do data de reserva, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_data')
+            to_columns: [sk_data]             
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_data')
+              field: sk_data # Realiza integridade referencial para garantir que a SK exista       
+
+      - name: sk_data_retirada
+        description: "Surrogate Key do data de retirada, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_data')
+            to_columns: [sk_data]          
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_data')
+              field: sk_data # Realiza integridade referencial para garantir que a SK exista                     
+
+      - name: sk_data_devolucao
+        description: "Surrogate Key do data de devolucao, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_data')
+            to_columns: [sk_data]          
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_data')
+              field: sk_data # Realiza integridade referencial para garantir que a SK exista
+
+      - name: sk_detalhe_reserva
+        description: "Surrogate Key do detalhe da reserva, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de detalhe da reserva."                
+        datatype: varchar        
+
+      - name: id_reserva
+        description: "Dimensão degenerada que responsável por evidenciar o identificar natural da reserva/locação."
+        datatype: int
+        constraint:
+          - type: not_null
+          - type: unique      
+        tests:
+          - not_null
+          - unique    
+
+      - name: hr_reserva
+        description: "Dimensão degenerada responsável por evidenciar a hora que foi realizada a reserva/locação."
+        datatype: time
+        constraint:
+          - type: not_null
+        tests:
+          - not_null
+
+      - name: flg_valor_acima_media
+        description: "Dimensão degenerada cujo é uma flag, responsável por identificar se o valor realizado está acima da média."
+        datatype: boolean
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]   
+
+      - name: flg_suspeita_fraude_usuario
+        description: "Dimensão degenerada cujo é uma flag, com objetivo de identificar se é possível fraude ou não a reserva/locação."
+        datatype: boolean
+        constraint:
+          - type: not_null          
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]
+
+      - name: qt_dias_locacao
+        description: "Quantidade de dias de locação, ou seja, quantos dias essa reserva/locação ficou ativa juntamente com o veículo."
+        datatype: int
+        constraint:
+          - type: not_null
+          - type: check
+            expression: qt_dias_locacao >= 0
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: vlr_total_reserva
+        description: "Valor total da resserva/locação que foi cobrado via plataforma."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null
+          - type: check
+            expression: vlr_total_reserva >= 0        
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0              
+
+      - name: vlr_total_reserva
+        description: "Valor total da resserva/locação que foi cobrado via plataforma."
+        datatype: decimal(10,2)    
+              
+      - name: vlr_receita_liquida_reserva
+        description: "Valor da receita liquida da resserva/locação que foi cobrado via plataforma."
+        datatype: decimal(10,2)        
+
+      - name: vlr_diaria
+        description: "Valor da diária referente a locação/reserva do veículo na plataforma."
+        datatype: decimal(10,2)        
+
+# --------------------------
+# Fato Sessões
+# --------------------------
+  - name: fct_sessoes
+    description: "Tabela fato responsável por armazenar informações das sessões e navegações dos usuários dentro da plataforma, para mensurar e entender as características dos usuários."
+    group: analytics_engineering
+    access: public
+    config:
+      contract: # Contrato de dados
+        enforced: true 
+    tags: ["marts", "fato", "cancelamento", "sessoes", "buscas"]
+    meta:
+      owner: "analytics_engineering"
+      dominio: "usuarios"
+      nivel_criticidade: "alto"
+      sla_atualizacao: "diario"
+      consumidores: ["camada_semantica", "analise_ad_hoc"]      
+    columns:
+      - name: sk_sessao
+        description: "Surrogate Key da sessao, diferente das outras surrogates keys, essa está na tabela somente para manter a integridade em formato transacional."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: unique
+          - type: primary_key        
+        tests:
+          - unique
+          - not_null
+
+      - name: sk_usuario
+        description: "Surrogate Key do usuário, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de usuário."
+        datatype: varchar
+        constraint:
+          - type: foreign_key
+            to: ref('dim_usuarios')
+            to_columns: [sk_usuario]        
+        tests:
+          - relationships:
+              to: ref('dim_usuarios')
+              field: sk_usuario # Realiza integridade referencial para garantir que a SK exista          
+
+      - name: sk_data_inicio_sessao
+        description: "Surrogate Key do data do início da sessão, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_data')
+            to_columns: [sk_data]        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_data')
+              field: sk_data # Realiza integridade referencial para garantir que a SK exista       
+
+      - name: sk_data_final_sessao
+        description: "Surrogate Key do data início da sessão, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de data."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_data')
+            to_columns: [sk_data]             
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_data')
+              field: sk_data # Realiza integridade referencial para garantir que a SK exista
+
+      - name: sk_origem_campanha
+        description: "Surrogate Key da origem da campanha, com base nessa chave é possível utiliza-la para realizar junção diretamente com a dimensão de origem de campanha."
+        datatype: varchar
+        constraint:
+          - type: not_null
+          - type: foreign_key
+            to: ref('dim_origem_campanha')
+            to_columns: [sk_origem_campanha]             
+        tests:
+          - relationships:
+              to: ref('dim_origem_campanha')
+              field: sk_origem_campanha # Realiza integridade referencial para garantir que a SK exista                  
+
+      - name: id_sessao
+        description: "Dimensão degenerada que responsável por evidenciar o identificar natural da sessao."
+        datatype: int
+        constraint:
+          - type: not_null
+        tests:
+          - not_null
+
+      - name: hr_inicial_sessao
+        description: "Dimensão degenerada responsável por evidenciar a hora inicial da sessão."
+        datatype: time
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+
+      - name: hr_final_sessao
+        description: "Dimensão degenerada responsável por evidenciar a hora final da sessão."
+        datatype: time
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null          
+
+      - name: flg_houve_clique
+        description: "Dimensão degenerada cujo é uma flag, por identificar se o usuário interagiu e clicou em nas pesquisas."
+        datatype: boolean
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE] 
+
+      - name: flg_volume_busca_anormal
+        description: "Dimensão degenerada cujo é uma flag, identifica se o usuário está realizando buscas excessivas."
+        datatype: boolean
+        constraint:
+          - type: not_null        
+        tests:
+          - not_null
+          - accepted_values:
+              values: [TRUE, FALSE]               
+
+      - name: qt_duracao_sessao_minutos
+        description: "Quantidade em minutos da duração das sessões dentro da plataforma."
+        datatype: int
+        constraint:
+          - type: not_null    
+          - type: check
+            expression: qt_duracao_sessao_minutos >= 0     
+        tests:
+          - not_null         
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: qt_paginas_vistas
+        description: "Quantidade de páginas que foram visitadas pelo usuário."
+        datatype: int
+        constraint:
+          - type: not_null    
+          - type: check
+            expression: qt_paginas_vistas >= 0          
+        tests:
+          - not_null         
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: qt_total_buscas
+        description: "Quantidade total de buscas que foram realizadas durante a sessão na plataforma."
+        datatype: int
+        constraint:
+          - type: not_null    
+          - type: check
+            expression: qt_total_buscas >= 0          
+        tests:
+          - not_null         
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+      - name: vlr_menor_preco_pesquisado
+        description: "Valor do menor preço pesquisado pelo usuáiro dentro da plataforma de dados."
+        datatype: decimal(10,2)
+        constraint:
+          - type: not_null    
+          - type: check
+            expression: vlr_menor_preco_pesquisado >= 0          
+        tests:
+          - not_null         
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
